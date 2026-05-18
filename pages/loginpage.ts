@@ -1,12 +1,13 @@
 import { Locator, Page } from "@playwright/test";
 import { BrowserInteractionImp } from "../utilities/BrowserImplementation.ts";
-
+import { config } from "../config/config.ts";
 
 export class LoginPage extends BrowserInteractionImp{
     page:Page;
     userName:Locator;
     password:Locator;
     submit:Locator;
+    
 
     constructor(page:Page){
         super(page);
@@ -15,11 +16,16 @@ export class LoginPage extends BrowserInteractionImp{
         this.password=page.locator("#password");
         this.submit=page.locator("#submit");
     }
+    async navigateTo():Promise<void>{
+        await this.page.goto(config.baseUrl);
+    }
 
     async enterUserName(data:string):Promise<void>{
         await this.fill(this.userName,data);
         
     }
+
+
     
     
     
